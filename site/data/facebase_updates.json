@@ -1,7 +1,14 @@
 {
-  "updated_at": "2026-11-03 02:06 UTC",
+  "updated_at": "2026-11-04 02:05 UTC",
   "source": "https://www.facebase.org/ermrest/catalog/1/entity/isa:dataset",
   "items": [
+    {
+      "title": "Craniofacial Developmental Atlas of Protein Expression of the House Finch",
+      "kind": "FaceBase dataset",
+      "date": "2026-11-03",
+      "summary": "This comprehensive and interactive developmental atlas provides a multidimensional description of developmental contexts by integrating the subcellular location and intensity of expression of eight proteins with histological context, anatomical position within the whole beak, developmental stage and population variability in mid-sagittal sections of the house finch beak. Our atlas illustrates subcellular location and",
+      "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/BN-G7QM"
+    },
     {
       "title": "Sensory nerve-derived signaling coordinates oropharyngeal structural organization",
       "kind": "Dataset release news",
@@ -1394,13 +1401,6 @@
       "date": "2017-02-06",
       "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=1620&organism_id=1) to see the associated data in the VISTA browser.",
       "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/TSR"
-    },
-    {
-      "title": "Craniofacial phenotype analysis",
-      "kind": "FaceBase dataset",
-      "date": "2016-01-01",
-      "summary": "MicroCT images of E16.5, E18.5, and P0 controls for Wnt1-Cre;Tgfbr2fl/fl",
-      "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/VDE"
     }
   ]
 }
