@@ -1,7 +1,14 @@
 {
-  "updated_at": "2026-11-04 02:05 UTC",
+  "updated_at": "2026-11-05 02:17 UTC",
   "source": "https://www.facebase.org/ermrest/catalog/1/entity/isa:dataset",
   "items": [
+    {
+      "title": "KMT2C and KMT2D enhancer chromatin regulation during cranial neural crest osteochondral differentiation",
+      "kind": "FaceBase dataset",
+      "date": "2026-11-04",
+      "summary": "Many craniofacial disorders linked to mutations in enhancer-associated chromatin-modifiers, including Kabuki syndrome (KS), present with skeletal abnormalities. KS is a craniofacial development disorder characterized by mutations in KMT2D, a histone H3 lysine 4 (H3K4) methyltransferase. KMT2D cellular origins and molecular pathways leading to skeletal deficits in KS are not well characterized. We previously demonstra",
+      "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/8C-WDXG"
+    },
     {
       "title": "Craniofacial Developmental Atlas of Protein Expression of the House Finch",
       "kind": "FaceBase dataset",
@@ -1394,13 +1401,6 @@
       "date": "2017-02-06",
       "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=1629&organism_id=1) to see associated data in the VISTA browser. (Note that the VISTA Browser data from this link corresponds to E11.5 while the data shown in here is for E14.5)",
       "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/V3M"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - hs1620",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=1620&organism_id=1) to see the associated data in the VISTA browser.",
-      "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/TSR"
     }
   ]
 }
