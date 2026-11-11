@@ -1,7 +1,14 @@
 {
-  "updated_at": "2026-11-10 02:10 UTC",
+  "updated_at": "2026-11-11 02:08 UTC",
   "source": "https://www.facebase.org/ermrest/catalog/1/entity/isa:dataset",
   "items": [
+    {
+      "title": "Human tongue-derived fibroadipogenic progenitor cell secretome",
+      "kind": "FaceBase dataset",
+      "date": "2026-11-10",
+      "summary": "A clinical cardinal feature of Beckwith-Wiedemann syndrome (BWS) is macroglossia, or tongue overgrowth. The tongue contains a multitude of cell types, including fibroadipogenic progenitor cells (FAPs), which are skeletal muscle-resident stromal cells that modulate skeletal muscle properties through secretory mechanisms. We previously identified that one cause of tongue overgrowth in a subtype of BWS (IC2 LOM) is the ",
+      "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/AV-Z5Z6"
+    },
     {
       "title": "KMT2C and KMT2D enhancer chromatin regulation during cranial neural crest osteochondral differentiation",
       "kind": "FaceBase dataset",
@@ -1394,13 +1401,6 @@
       "date": "2017-02-06",
       "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=50&organism_id=2) to see the associated data in the VISTA browser.",
       "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/TQW"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - hs1629",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=1629&organism_id=1) to see associated data in the VISTA browser. (Note that the VISTA Browser data from this link corresponds to E11.5 while the data shown in here is for E14.5)",
-      "url": "https://www.facebase.org/ermrest/catalog/1/entity_rid/V3M"
     }
   ]
 }
