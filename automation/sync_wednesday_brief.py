@@ -18,6 +18,12 @@ def main():
             raise ValueError('Invalid or duplicate DOI: '+doi)
         seen.add(doi)
         if not row['title'].strip() or not 1<=int(row['stars'])<=5:raise ValueError('Invalid record: '+doi)
+    # Compare endpoints without emitting URLs or credentials into public logs.
+    config=pathlib.Path('site/config.js').read_text()
+    match=re.search(r"supabaseUrl\s*:\s*['\"]([^'\"]+)['\"]",config)
+    if not match or match.group(1).rstrip('/') != os.environ['SUPABASE_URL'].rstrip('/'):
+        raise RuntimeError('Website and sync job are configured for different database projects')
+    print('Website and sync database: same project')
     failures=[]
     for row in records:
         doi=row['doi'].strip().lower()
@@ -43,4 +49,11 @@ def main():
             failures.append(doi)
             print('Failed',doi,type(exc).__name__,str(exc))
     if failures:raise SystemExit('Failed records: '+', '.join(failures))
+    # Count all papers, not just the current user's visible filtered cards.
+    req=urllib.request.Request(base+'?select=id&limit=1',headers={**headers,'Prefer':'count=exact'})
+    with urllib.request.urlopen(req,timeout=30) as response:
+        total=response.headers.get('Content-Range','').rsplit('/',1)[-1]
+    if not total.isdigit():raise RuntimeError('Database total could not be verified')
+    print('Database total papers:',total)
+    print('Curated DOI manifest records processed:',len(records))
 if __name__=='__main__':main()
