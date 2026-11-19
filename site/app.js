@@ -367,11 +367,14 @@ const FUNDAMENTAL_TOPICS=[
  ['Craniofacial Anatomy','Midface, maxilla, nasal region, sutures'],
  ['Methods & Atlases','scRNA-seq, spatial transcriptomics, whole-mount and 3D imaging']
 ];
+function isSharedGuest(){return String(user?.email||'').toLowerCase()===GUEST_EMAIL;}
 function fundamentalsPage() {
     const query = fundQuery.toLowerCase().trim();
     const filter = fundCategory;
- const cards=[...fundamentals].sort((a,b)=>{const book=x=>String(x.description||'').startsWith('Current Topics in Developmental Biology, Vol. 115 (2015)');if(book(a)&&book(b))return a.title.localeCompare(b.title,undefined,{numeric:true});return book(a)?-1:book(b)?1:0;}).filter(x=>(!filter||x.category===filter)&&(!query||[x.title,x.category,x.kind,x.description].join(' ').toLowerCase().includes(query))).map(x=>`<article class="card fundCard" data-fund-id="${esc(x.id)}"><span class="tag">${esc(x.category)}</span><h3>${esc(x.title)}</h3><p class="meta">${esc(x.kind)}</p>${x.description?`<p style="white-space:pre-wrap">${esc(x.description)}</p>`:''}<div class="row">${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Open Resource ↗</a>`:''}${x.storage_path?`<button type="button" class="fundOpen">Open Uploaded File</button>`:''}<button type="button" class="fundDelete">Delete</button></div></article>`).join('');
- return `<div class="detailArticle fundPage"><div class="detailHeader"><a href="#" class="backLink">← Back to Library</a></div><h2>Craniofacial Development Fundamentals</h2><p class="muted">Build your private learning library with textbooks, reviews, research papers, diagrams, and personal notes. No AI API required.</p><div class="fundTopicGrid">${FUNDAMENTAL_TOPICS.map(([name,desc])=>`<div class="fundTopic"><b>${esc(name)}</b><p class="muted">${esc(desc)}</p></div>`).join('')}</div><section class="detailSection"><h3>My Learning Resources</h3><div class="row"><input id="fundSearch" placeholder="Search resources" value="${esc(fundQuery)}"><select id="fundFilter"><option value="">All Topics</option>${FUNDAMENTAL_TOPICS.map(([name])=>`<option value="${esc(name)}" ${filter===name?'selected':''}>${esc(name)}</option>`).join('')}</select></div><div class="fundResources">${cards||'<p class="muted">No matching resources yet. Add your first one below.</p>'}</div></section><section class="detailSection"><h3>Import zip textbook</h3><p class="muted">Select the original ScienceDirect ZIP containing Chapters 1–21, or extract it and select the individual chapter PDFs together. Chapter titles and DOI are pre-mapped. All files are uploaded directly to your private Fundamentals storage; front matter and index are ignored. Existing uploaded chapters are skipped.</p><form id="fundBookForm" class="addForm"><label>ZIP or chapter PDF files<input id="fundBookFiles" type="file" accept=".zip,.pdf" multiple required></label><button type="submit" class="primary" ${bookImportBusy?'disabled':''}>Import chapters to Craniofacial Anatomy</button><p id="fundBookMessage" role="status" aria-live="polite"></p></form></section><section class="detailSection"><h3>Add a Learning Resource</h3><form id="fundForm" class="addForm"><label>Title *<input name="title" required maxlength="500" placeholder="e.g. Cranial neural crest migration"></label><div class="formRow"><label>Topic<select name="category">${FUNDAMENTAL_TOPICS.map(([name])=>`<option value="${esc(name)}">${esc(name)}</option>`).join('')}</select></label><label>Resource Type<select name="kind"><option>Study Note</option><option>Textbook</option><option>Review</option><option>Research Paper</option><option>Lecture / Slide</option><option>Diagram / Image</option><option>Other</option></select></label></div><label>Notes / Summary<textarea name="description" placeholder="Your notes or a brief description (optional)"></textarea></label><label>Reference Link (optional)<input name="url" type="url" placeholder="https://..."></label><label>Upload File (optional)<input name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.ppt,.pptx,.doc,.docx,.txt" ></label><p class="muted">PDF, images, slides or documents, up to 25 MB. Upload only material you have the right to store.</p><button type="submit" class="primary">Save Resource</button><p id="fundMessage" role="status"></p></form></section></div>`;
+ const guest=isSharedGuest();
+ const categories=[...new Set([...FUNDAMENTAL_TOPICS.map(([name])=>name),...fundamentals.map(x=>x.category).filter(Boolean)])];
+ const cards=[...fundamentals].sort((a,b)=>{const book=x=>String(x.description||'').startsWith('Current Topics in Developmental Biology, Vol. 115 (2015)');if(book(a)&&book(b))return a.title.localeCompare(b.title,undefined,{numeric:true});return book(a)?-1:book(b)?1:0;}).filter(x=>(!filter||x.category===filter)&&(!query||[x.title,x.category,x.kind,x.description].join(' ').toLowerCase().includes(query))).map(x=>`<article class="card fundCard" data-fund-id="${esc(x.id)}"><span class="tag">${esc(x.category)}</span><h3>${esc(x.title)}</h3><p class="meta">${esc(x.kind)}</p>${x.description?`<p style="white-space:pre-wrap">${esc(x.description)}</p>`:''}<div class="row">${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Open Resource ↗</a>`:''}${x.storage_path?`<button type="button" class="fundOpen">Open Uploaded File</button>`:''}${!guest&&x.user_id===user?.id?'<button type="button" class="fundDelete">Delete</button>':''}</div></article>`).join('');
+ return `<div class="detailArticle fundPage"><div class="detailHeader"><a href="#" class="backLink">← Back to Library</a></div><h2>Craniofacial Development Fundamentals</h2><p class="muted">Browse the shared craniofacial learning library. Personal resources remain private unless explicitly shared.</p><div class="fundTopicGrid">${FUNDAMENTAL_TOPICS.map(([name,desc])=>`<div class="fundTopic"><b>${esc(name)}</b><p class="muted">${esc(desc)}</p></div>`).join('')}</div><section class="detailSection"><h3>Learning Resources (${fundamentals.length})</h3><div class="row"><input id="fundSearch" placeholder="Search resources" value="${esc(fundQuery)}"><select id="fundFilter"><option value="">All Topics</option>${categories.map(name=>`<option value="${esc(name)}" ${filter===name?'selected':''}>${esc(name)}</option>`).join('')}</select></div><div class="fundResources">${cards||'<p class="muted">No matching resources yet. Add your first one below.</p>'}</div></section>${guest?'<p class="muted">Shared resources · Read-only access</p>':`<section class="detailSection"><h3>Import zip textbook</h3><p class="muted">Select the original ScienceDirect ZIP containing Chapters 1–21, or extract it and select the individual chapter PDFs together. Chapter titles and DOI are pre-mapped. Chapters will be accessible to shared-password visitors. Import only files you have permission to share. Front matter and index are ignored. Existing uploaded chapters are skipped.</p><form id="fundBookForm" class="addForm"><label>ZIP or chapter PDF files<input id="fundBookFiles" type="file" accept=".zip,.pdf" multiple required></label><button type="submit" class="primary" ${bookImportBusy?'disabled':''}>Import chapters to Craniofacial Anatomy</button><p id="fundBookMessage" role="status" aria-live="polite"></p></form></section><section class="detailSection"><h3>Add a Learning Resource</h3><form id="fundForm" class="addForm"><label>Title *<input name="title" required maxlength="500" placeholder="e.g. Cranial neural crest migration"></label><div class="formRow"><label>Topic<select name="category">${FUNDAMENTAL_TOPICS.map(([name])=>`<option value="${esc(name)}">${esc(name)}</option>`).join('')}</select></label><label>Resource Type<select name="kind"><option>Study Note</option><option>Textbook</option><option>Review</option><option>Research Paper</option><option>Lecture / Slide</option><option>Diagram / Image</option><option>Other</option></select></label></div><label>Notes / Summary<textarea name="description" placeholder="Your notes or a brief description (optional)"></textarea></label><label>Reference Link (optional)<input name="url" type="url" placeholder="https://..."></label><label>Upload File (optional)<input name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.ppt,.pptx,.doc,.docx,.txt" ></label><p class="muted">PDF, images, slides or documents, up to 25 MB. Upload only material you have the right to store.</p><label><input name="share" type="checkbox" style="width:auto"> Share with password visitors (only if you have permission)</label><button type="submit" class="primary">Save Resource</button><p id="fundMessage" role="status"></p></form></section>`}</div>`;
 }
 function showFundamentals(){
  $('listView').classList.add('hidden');$('detailView').classList.add('hidden');$('addView').classList.add('hidden');
@@ -379,7 +382,7 @@ function showFundamentals(){
  $('fundamentalsView').innerHTML=fundamentalsPage();
 }
 async function loadFundamentals(){
- const {data,error}=await client.from('fundamentals_resources').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).limit(500);
+ const {data,error}=await client.from('fundamentals_resources').select('*').order('created_at',{ascending:false}).limit(500);
  if(error)throw error;fundamentals=data||[];
  if(location.hash==='#fundamentals')showFundamentals();
 }
@@ -433,7 +436,7 @@ async function readBookZip(file){
  return out;
 }
 async function importFundBook(e){
- e.preventDefault();if(bookImportBusy)return;
+ e.preventDefault();if(bookImportBusy||isSharedGuest())return;
  const msg=$('fundBookMessage'),btn=e.target.querySelector('[type=submit]'),files=[...$('fundBookFiles').files];
  if(!user||!client){msg.textContent='Sign in first.';return;}
  const uid=user.id;let imported=0,skipped=0,errors=[];
@@ -460,7 +463,7 @@ async function importFundBook(e){
     path=uid+'/'+crypto.randomUUID()+'.pdf';
     const up=await client.storage.from('fundamentals-files').upload(path,pdf,{contentType:'application/pdf',upsert:false});
     if(up.error){path='';throw up.error;}
-    const record={user_id:uid,title:chapter.title,category:'Craniofacial Anatomy',kind:'Textbook',description:'Current Topics in Developmental Biology, Vol. 115 (2015) · '+chapter.pages+' pages',url:chapter.doi,storage_path:path};
+    const record={user_id:uid,title:chapter.title,category:'Craniofacial Anatomy',kind:'Textbook',description:'Current Topics in Developmental Biology, Vol. 115 (2015) · '+chapter.pages+' pages',url:chapter.doi,storage_path:path,shared_with_guests:true};
     const insert=await client.from('fundamentals_resources').insert(record);
     if(insert.error)throw insert.error;
     saved.push(record);imported++;path='';
@@ -479,7 +482,7 @@ async function importFundBook(e){
 }
 
 async function addFundamental(e){
- e.preventDefault();const form=e.target,msg=$('fundMessage'),button=form.querySelector('[type=submit]');
+ e.preventDefault();if(isSharedGuest())return;const form=e.target,msg=$('fundMessage'),button=form.querySelector('[type=submit]');
  button.disabled=true;msg.textContent='Saving resource…';let path='';
  try{
   const f=new FormData(form),file=f.get('file');
@@ -493,7 +496,7 @@ async function addFundamental(e){
    const up=await client.storage.from('fundamentals-files').upload(path,file,{contentType:file.type||'application/octet-stream',upsert:false});
    if(up.error)throw up.error;
   }
-  const record={user_id:user.id,title:String(f.get('title')||'').trim(),category:String(f.get('category')),kind:String(f.get('kind')),description:String(f.get('description')||'').trim(),url:url||null,storage_path:path||null};
+  const record={user_id:user.id,title:String(f.get('title')||'').trim(),category:String(f.get('category')),kind:String(f.get('kind')),description:String(f.get('description')||'').trim(),url:url||null,storage_path:path||null,shared_with_guests:f.get('share')==='on'};
   if(!record.title)throw Error('Title is required');
   const {error}=await client.from('fundamentals_resources').insert(record);
   if(error)throw error;
@@ -510,6 +513,7 @@ async function handleFundamentalClick(e){
    if(error)throw error;window.open(data.signedUrl,'_blank','noopener');
   }
   if(e.target.closest('.fundDelete')){
+   if(isSharedGuest()||item.user_id!==user?.id)return;
    if(!confirm('Delete this resource and its uploaded file?'))return;
    const {error}=await client.from('fundamentals_resources').delete().eq('id',item.id).eq('user_id',user.id);
    if(error)throw error;
