@@ -30,7 +30,28 @@ function paperExternalUrl(p){
   return doiLink(doi);
 }
 function statusOf(id){return progress.get(id)?.status||'unread';}
-function stats(){let counts={unread:0,reading:0,read:0};papers.forEach(p=>counts[statusOf(p.id)]++);$('stats').textContent=`Total ${papers.length} papers | Unread ${counts.unread} | Reading ${counts.reading} | Read ${counts.read} | Showing ${document.querySelectorAll('.card').length}`;}
+// Same conservative relevance rule as automation/update_papers.py.
+const relevancePatterns={
+ anatomy: /\b(?:craniofacial|orofacial|midfac(?:e|ial)|frontonasal|cranial neural crest|cephalic neural crest|facial (?:development|morphogenesis|prominences?|shape|morpholog\w*|mesenchym\w*|skeleton|diversity|variation|primordia)|developing face|maxill\w*|mandib\w*|palat\w*|pharyngeal arch\w*|branchial arch\w*|nasal prominenc\w*|nasal process\w*|calvari\w*|cranial sutur\w*|craniosynostosis|cleft (?:lip|palat\w*)|cleidocranial dysplasia)\b/i,
+ dev: /\b(?:embryo\w*|fetal|foetal|prenatal|development\w*|morphogen\w*|organogen\w*|patterning|positional identity|neural crest|cell fate|lineage specification|congenital|craniosynostosis|cleft|cleidocranial dysplasia)\b/i,
+ omics: /\b(?:single[- ](?:cell|nucleus)|snrna[- ]?seq|scrna[- ]?seq|spatial transcriptom\w*|spatial genom\w*|multiom\w*|multi-om\w*|gene regulatory|enhancer\w*|genome[- ]wide association|gwas)\b/i,
+ mechanism: /\b(?:runx2|ephrin\w*|cncc|neural crest|mesenchym\w*|epithel\w*|osteogenic progenitor\w*|osteochondral|cell fate|morphogen\w*|patterning|facial|cranial|craniofacial)\b/i,
+ exclude: /\b(?:cancer\w*|carcinoma\w*|osteosarcoma\w*|tumou?r\w*|metast\w*|periodontitis|peri[- ]implantitis|dental implant\w*|bone defect\w*|bone regeneration|bone repair|osteoporosis|osteoarthritis|orthodontic tooth movement|wound healing|head and neck squamous)\b/i
+};
+function autoRelevant(p){
+ const t=String(p.title||''), a=String(p.key_finding||'').replace(/^PubMed abstract \(unreviewed summary\): /,'');
+ const m=(key,s)=>relevancePatterns[key].test(s);
+ return !m('exclude',t)&&((m('anatomy',t)&&(m('dev',t+' '+a)||m('omics',t+' '+a)))||(m('anatomy',a)&&m('dev',t)&&(m('mechanism',t)||m('omics',t)))||(m('anatomy',a)&&m('omics',t)&&m('mechanism',t)&&m('dev',a)));
+}
+function needsReview(p){return p.provenance==='pubmed_weekly_auto'&&!autoRelevant(p);}
+function visiblePaper(p){
+ const mode=$('relevance').value;
+ if(mode==='all')return true;
+ if(mode==='review')return needsReview(p);
+ const saved=progress.get(p.id);
+ return !needsReview(p)||Boolean(saved&&(saved.status!=='unread'||saved.notes));
+}
+function stats(){let counts={unread:0,reading:0,read:0};papers.forEach(p=>counts[statusOf(p.id)]++);$('stats').textContent=`Total ${papers.length} papers | Unread ${counts.unread} | Reading ${counts.reading} | Read ${counts.read} | Showing ${$('cards').querySelectorAll('.card').length} | Auto-imports needing review ${papers.filter(needsReview).length}`;}
 function figCard(c){return `<div class="figure"><b>${esc(c.figure||'Figure / panel not verified')}</b><div><b>Method：</b>${esc(c.method)}</div>${c.detail?`<div><b>Details: </b>${esc(c.detail)}</div>`:''}<div><b>RUNX2 Relevance: </b>${esc(c.why)}</div><small>${esc(c.verification||'Figure number not verified')}</small></div>`;}
 function card(p){const s=statusOf(p.id);return `<article class="card" data-id="${esc(p.id)}"><div class="row"><span class="tag">${esc(p.topic)}</span><span class="stars">${'★'.repeat(p.stars)}${'☆'.repeat(5-p.stars)}</span></div><h3>${esc(p.title)}</h3><div class="meta">${esc(p.authors)} · ${esc(p.journal)} · ${esc(p.publication_year)}</div>${verificationLabel(p)?`<p class="small"><span class="pill">${verificationLabel(p)}</span></p>`:""}<p><b>Key Finding：</b>${esc(p.key_finding)}</p><p><b>RUNX2 relevance：</b>${esc(p.runx2_value)}</p><div class="row"><a class="detailLink primaryLink" href="#paper/${encodeURIComponent(p.id)}">Open Paper →</a><select class="readStatus" aria-label="Reading Status"><option value="unread" ${s==='unread'?'selected':''}>Unread</option><option value="reading" ${s==='reading'?'selected':''}>Reading</option><option value="read" ${s==='read'?'selected':''}>Read</option></select></div></article>`;}
 function verificationLabel(p){return p.verification_status==='original_figures_checked'?'Original figures verified':p.verification_status==='paper_confirmed_figure_pending'?'Figures not yet verified':'';}
@@ -235,9 +256,17 @@ async function loadFaceBaseFeed(force=false){
  catch(e){facebaseFeed={updated_at:null,items:[],error:e.message};}
  if(location.hash==='#facebase')showFaceBase();
 }
+function facebaseUrl(x){
+ const raw=String(x.url||'').trim();
+ const old=raw.match(/^https:\/\/www\.facebase\.org\/ermrest\/catalog\/1\/entity_rid\/([A-Za-z0-9-]+)$/);
+ if(old)return 'https://www.facebase.org/chaise/record/#1/isa:dataset/RID='+encodeURIComponent(old[1]);
+ if(/^https:\/\/www\.facebase\.org\/chaise\/record\/#1\/isa:dataset\/RID=[A-Za-z0-9-]+$/.test(raw)||/^https:\/\/doi\.org\/10\.\d{4,9}\/\S+$/i.test(raw))return raw;
+ const rid=String(x.rid||'');
+ return /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/.test(rid)?'https://www.facebase.org/chaise/record/#1/isa:dataset/RID='+encodeURIComponent(rid):'';
+}
 function facebasePage(){
- const data=facebaseFeed||{items:[]},items=(data.items||[]).filter(x=>!facebaseFilter||[x.title,x.summary,x.kind].join(' ').toLowerCase().includes(facebaseFilter));
- const cards=items.map(x=>`<article class="card"><span class="tag">${esc(x.kind||'Official update')}</span><h3>${esc(x.title)}</h3><p class="meta">${esc(x.date||'Date not specified')} · FaceBase</p><p>${esc(x.summary||'')}</p><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">View on FaceBase ↗</a></article>`).join('');
+ const data=facebaseFeed||{items:[]},items=(data.items||[]).filter(x=>!facebaseFilter||[x.title,x.summary,x.kind].join(' ').toLowerCase().includes(facebaseFilter.toLowerCase().trim()));
+ const cards=items.map(x=>`<article class="card"><span class="tag">${esc(x.kind||'Official update')}</span><h3>${esc(x.title)}</h3><p class="meta">${esc(x.date||'Date not specified')} · FaceBase</p><p>${esc(x.summary||'')}</p>${x.rid?`<p class="small">RID: ${esc(x.rid)}${x.accession?` · ${esc(x.accession)}`:""}</p>`:""}${facebaseUrl(x)?`<a href="${esc(facebaseUrl(x))}" target="_blank" rel="noopener noreferrer">${x.kind==="Publication"?"Open article":"Open dataset"} ↗</a>`:`<p class="muted">Specific resource link not verified.</p>`}${/^https:\/\/doi\.org\/10\.\d{4,9}\/\S+$/i.test(x.related_url||"")?` · <a href="${esc(x.related_url)}" target="_blank" rel="noopener noreferrer">${esc(x.related_label||"Related resource")} ↗</a>`:""}</article>`).join('');
  return `<div class="detailArticle facebasePage"><div class="detailHeader"><a href="#" class="backLink">← Back to Paper Library</a></div><h2>FaceBase Explorer</h2><p class="muted">Official FaceBase releases and research news, checked daily. This is a filtered discovery feed, not a full mirror of the FaceBase dataset catalog.</p><div class="row"><a href="https://www.facebase.org/" target="_blank" rel="noopener noreferrer">Official FaceBase ↗</a><a href="https://docs.facebase.org/docs/discovering-data/" target="_blank" rel="noopener noreferrer">Browse & Filter Datasets ↗</a><button type="button" id="refreshFaceBase">Refresh Feed</button></div><p class="muted">Last successful check: ${esc(data.updated_at||'Not available')} · ${data.error?'Feed unavailable: '+esc(data.error):'Public metadata only'}</p><label>Filter updates <input id="facebaseSearch" value="${esc(facebaseFilter)}" placeholder="RUNX2, neural crest, E13.5, spatial…"></label><div class="fundResources">${cards||'<p class="muted">No matching updates in the current snapshot. Browse the official dataset catalog for full coverage.</p>'}</div></div>`;
 }
 function showFaceBase(){
@@ -269,7 +298,7 @@ async function insertManualPaper(e){e.preventDefault();const btn=$('savePaperBtn
 
 
 function render(){let q=$('search').value.toLowerCase().trim(),topic=$('topic').value,status=$('status').value,stars=Number($('stars').value);
- let filtered=papers.filter(p=>(!topic||p.topic===topic)&&(!status||statusOf(p.id)===status)&&p.stars>=stars&&(!q||[p.title,p.authors,p.journal,p.topic,p.methods,p.figures,p.key_finding,p.runx2_value,p.doi,JSON.stringify(p.figure_cards)].join(' ').toLowerCase().includes(q)));
+ let filtered=papers.filter(p=>visiblePaper(p)&&(!topic||p.topic===topic)&&(!status||statusOf(p.id)===status)&&p.stars>=stars&&(!q||[p.title,p.authors,p.journal,p.topic,p.methods,p.figures,p.key_finding,p.runx2_value,p.doi,JSON.stringify(p.figure_cards)].join(' ').toLowerCase().includes(q)));
  $('cards').innerHTML=filtered.length?filtered.map(card).join(''):'<div class="panel">No papers match these filters.</div>';stats();showRoute();}
 async function load(){const [a,b]=await Promise.all([client.from('papers').select('*').order('stars',{ascending:false}).order('added_at',{ascending:false}).range(0,999),client.from('reading_progress').select('paper_id,status,notes').eq('user_id',user.id).range(0,999)]);if(a.error||b.error)throw Error(a.error?.message||b.error?.message);papers=a.data||[];progress=new Map((b.data||[]).map(x=>[x.paper_id,x]));let topics=[...new Set(papers.map(p=>p.topic))].sort();$('topic').innerHTML='<option value="">All Topics</option>'+topics.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join('');render();}
 async function save(id,changes){const prev=progress.get(id)||{status:'unread',notes:''};let record={user_id:user.id,paper_id:id,status:changes.status??prev.status,notes:changes.notes??prev.notes,updated_at:new Date().toISOString()};let {error}=await client.from('reading_progress').upsert(record,{onConflict:'user_id,paper_id'});if(error)throw error;progress.set(id,record);}
@@ -378,7 +407,7 @@ $('signout').onclick = async () => {
   $('signout').classList.add('hidden');
 };
 
-for(let id of ['search','topic','status','stars'])$(id).addEventListener(id==='search'?'input':'change',render);
+for(let id of ['search','topic','status','stars','relevance'])$(id).addEventListener(id==='search'?'input':'change',render);
 for(const area of ['cards','detailView']){$(area).addEventListener('click',handleCard);$(area).addEventListener('change',e=>{if(e.target.matches('.readStatus'))handleCard(e);});}window.addEventListener('hashchange',showRoute);
 $('facebaseView').addEventListener('click',e=>{if(e.target.id==='refreshFaceBase')loadFaceBaseFeed(true);});
 $('facebaseView').addEventListener('input',e=>{if(e.target.id==='facebaseSearch'){facebaseFilter=e.target.value;const pos=e.target.selectionStart;showFaceBase();const el=$('facebaseSearch');el.focus();el.setSelectionRange(pos,pos);}});

@@ -14,6 +14,19 @@ def get(endpoint, params):
  req=urllib.request.Request(BASE+endpoint+'?'+urllib.parse.urlencode(params),headers={'User-Agent':'RUNX2PrivateAtlas/1.0'})
  with urllib.request.urlopen(req,timeout=35) as r:return r.read()
 def clean(el):return ' '.join(''.join(el.itertext()).split()) if el is not None else ''
+ANATOMY = re.compile(r'\b(?:craniofacial|orofacial|midfac(?:e|ial)|frontonasal|cranial neural crest|cephalic neural crest|facial (?:development|morphogenesis|prominences?|shape|morpholog\w*|mesenchym\w*|skeleton|diversity|variation|primordia)|developing face|maxill\w*|mandib\w*|palat\w*|pharyngeal arch\w*|branchial arch\w*|nasal prominenc\w*|nasal process\w*|calvari\w*|cranial sutur\w*|craniosynostosis|cleft (?:lip|palat\w*)|cleidocranial dysplasia)\b', re.I)
+DEV = re.compile(r'\b(?:embryo\w*|fetal|foetal|prenatal|development\w*|morphogen\w*|organogen\w*|patterning|positional identity|neural crest|cell fate|lineage specification|congenital|craniosynostosis|cleft|cleidocranial dysplasia)\b', re.I)
+OMICS = re.compile(r'\b(?:single[- ](?:cell|nucleus)|snrna[- ]?seq|scrna[- ]?seq|spatial transcriptom\w*|spatial genom\w*|multiom\w*|multi-om\w*|gene regulatory|enhancer\w*|genome[- ]wide association|gwas)\b', re.I)
+MECHANISM = re.compile(r'\b(?:runx2|ephrin\w*|cncc|neural crest|mesenchym\w*|epithel\w*|osteogenic progenitor\w*|osteochondral|cell fate|morphogen\w*|patterning|facial|cranial|craniofacial)\b', re.I)
+EXCLUDE = re.compile(r'\b(?:cancer\w*|carcinoma\w*|osteosarcoma\w*|tumou?r\w*|metast\w*|periodontitis|peri[- ]implantitis|dental implant\w*|bone defect\w*|bone regeneration|bone repair|osteoporosis|osteoarthritis|orthodontic tooth movement|wound healing|head and neck squamous)\b', re.I)
+
+def relevant(title, abstract):
+ if EXCLUDE.search(title):return False
+ full=title+' '+abstract
+ return bool((ANATOMY.search(title) and (DEV.search(full) or OMICS.search(full))) or
+             (ANATOMY.search(abstract) and DEV.search(title) and (MECHANISM.search(title) or OMICS.search(title))) or
+             (ANATOMY.search(abstract) and OMICS.search(title) and MECHANISM.search(title) and DEV.search(abstract)))
+
 def score(title,abstract):
  s=(title+' '+abstract).lower();points=1
  if 'runx2' in s:points+=2
@@ -58,13 +71,13 @@ def main():
      if x.attrib.get('EIdType')=='doi':doi=clean(x).lower();break
    if not doi or not pmid or not title or not re.match(r'^10\.\d{4,9}/\S+$',doi):skipped+=1;continue
    # Avoid irrelevant results from broad PubMed query.
-   if score(title,abstract)<3:skipped+=1;continue
+   if not relevant(title,abstract):skipped+=1;continue
    author_nodes=article.findall('./MedlineCitation/Article/AuthorList/Author')
    names=[(' '.join(filter(None,[clean(x.find('ForeName')),clean(x.find('LastName'))])) or clean(x.find('CollectiveName'))) for x in author_nodes[:4]]
    authors=', '.join(x for x in names if x)+(' et al.' if len(author_nodes)>4 else '')
    journal=clean(article.find('./MedlineCitation/Article/Journal/Title'))
    year=clean(article.find('./MedlineCitation/Article/Journal/JournalIssue/PubDate/Year')) or clean(article.find('./MedlineCitation/Article/Journal/JournalIssue/PubDate/MedlineDate'))[:4]
-   obj={'source_key':'doi:'+doi,'doi':doi,'pmid':pmid,'title':title,'authors':authors,'journal':journal,'publication_year':year,'url':'https://doi.org/'+doi,'topic':topic(title,abstract),'figures':'Figure number pending original-article verification','methods':'See original Methods; not yet manually extracted','key_finding':('PubMed abstract (unreviewed summary): '+abstract[:900]) if abstract else 'Abstract not provided in PubMed; read original article.','runx2_value':'Candidate for RUNX2 midface research: relevance requires manual appraisal.','figure_cards':[],'stars':score(title,abstract),'verification_status':'paper_confirmed_figure_pending','provenance':'pubmed_weekly_auto'}
+   obj={'source_key':'doi:'+doi,'doi':doi,'pmid':pmid,'title':title,'authors':authors,'journal':journal,'publication_year':year,'url':'https://doi.org/'+doi,'topic':topic(title,abstract),'figures':'Figure number pending original-article verification','methods':'See original Methods; not yet manually extracted','key_finding':('PubMed abstract (unreviewed summary): '+abstract[:900]) if abstract else 'Abstract not provided in PubMed; read original article.','runx2_value':'Passed developmental craniofacial title/abstract relevance screen; scientific interpretation requires manual appraisal.','figure_cards':[],'stars':max(3,score(title,abstract)),'verification_status':'paper_confirmed_figure_pending','provenance':'pubmed_weekly_auto'}
    # Never overwrite curated cards or manually assigned stars. Existing records are skipped.
    payload=json.dumps(obj,ensure_ascii=False).encode()
    request=urllib.request.Request(url,data=payload,method='POST',headers={'apikey':key,'Authorization':'Bearer '+key,'Content-Type':'application/json','Prefer':'resolution=ignore-duplicates,return=minimal'})
