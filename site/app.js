@@ -620,6 +620,11 @@ async function updateSession(session) {
 
   if (next?.id === user?.id) return;
 
+  // Clear all in-memory personal data before switching accounts.
+  papers=[];progress=new Map();analyses=new Map();analysisJobs=new Map();fundamentals=[];
+  for(const id of ['cards','detailView','addView','fundamentalsView','facebaseView'])$(id).innerHTML='';
+  $('stats').textContent='';
+  $('search').value='';$('status').value='';$('stars').value='0';fundQuery='';fundCategory='';
   user = next;
 
   $('login').classList.toggle('hidden', !!user);
@@ -637,54 +642,29 @@ async function updateSession(session) {
   }
 }
 
-// Email and password sign-in
-$('loginBtn').onclick = async () => {
-  if (!client) {
-    return toast('Configure Supabase first');
-  }
-
-  const email = $('email').value.trim();
-  const password = $('loginPassword').value;
-
-  if (!email) {
-    return toast('Enter your email');
-  }
-
-  if (!password) {
-    return toast('Enter your password');
-  }
-
-  $('loginBtn').disabled = true;
-  $('authMsg').textContent = 'Signing in...';
-
-  try {
-    const { error } = await client.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if (error) {
-      $('authMsg').textContent = 'Sign-in failed: ' + error.message;
-    } else {
-      $('authMsg').textContent = '';
-      $('loginPassword').value = '';
-    }
-  } catch (e) {
-    $('authMsg').textContent = 'Sign-in failed: ' + e.message;
-  } finally {
-    $('loginBtn').disabled = false;
-  }
-};
-
-// Sign out
-$('signout').onclick = async () => {
-  await client?.auth.signOut();
-
-  user = null;
-
-  $('login').classList.remove('hidden');
-  $('app').classList.add('hidden');
-  $('signout').classList.add('hidden');
+// Shared access uses a separate real Supabase account, never the owner's account.
+const GUEST_EMAIL='scface-guest@example.com';
+async function signInAccount(email,password,button,passwordInput){
+ if(!client){toast('Configure Supabase first');return;}
+ if(!email||!password){$('authMsg').textContent='Enter the required sign-in details.';return;}
+ $('guestLoginBtn').disabled=true;$('loginBtn').disabled=true;
+ $('authMsg').textContent='Signing in…';
+ try{
+  const {error}=await client.auth.signInWithPassword({email,password});
+  if(error){$('authMsg').textContent='Sign-in failed. Check the password or contact the administrator.';return;}
+  $('authMsg').textContent='';passwordInput.value='';
+ }catch(err){$('authMsg').textContent='Sign-in unavailable. Please try again.';}
+ finally{$('guestLoginBtn').disabled=false;$('loginBtn').disabled=false;}
+}
+$('guestLoginForm').addEventListener('submit',e=>{
+ e.preventDefault();signInAccount(GUEST_EMAIL,$('guestPassword').value,$('guestLoginBtn'),$('guestPassword'));
+});
+$('ownerLoginForm').addEventListener('submit',e=>{
+ e.preventDefault();signInAccount($('email').value.trim(),$('loginPassword').value,$('loginBtn'),$('loginPassword'));
+});
+$('signout').onclick=async()=>{
+ try{const {error}=await client.auth.signOut();if(error)throw error;await updateSession(null);}
+ catch(err){toast('Sign-out failed: '+err.message);}
 };
 
 for(let id of ['search','topic','status','stars'])$(id).addEventListener(id==='search'?'input':'change',render);
