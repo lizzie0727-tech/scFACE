@@ -180,6 +180,177 @@ let fundCategory = '';
 window.fundQuery = window.fundQuery || '';
 window.fundCategory = window.fundCategory || '';
 
+const CRANIO_BOOK_CHAPTERS=[
+  {
+    "number": 1,
+    "prefix": "Chapter-One---",
+    "title": "Chapter 01 — Craniofacial Muscle Development",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.022",
+    "pages": 28,
+    "size": 2459014
+  },
+  {
+    "number": 2,
+    "prefix": "Chapter-Two---",
+    "title": "Chapter 02 — Mandible and Tongue Development",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.023",
+    "pages": 28,
+    "size": 1292386
+  },
+  {
+    "number": 3,
+    "prefix": "Chapter-Three---",
+    "title": "Chapter 03 — Cellular and Molecular Mechanisms of Palatogenesis",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.002",
+    "pages": 26,
+    "size": 5154042
+  },
+  {
+    "number": 4,
+    "prefix": "Chapter-Four---",
+    "title": "Chapter 04 — Genetic Influences on Temporomandibular Joint Development and Growth",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.008",
+    "pages": 25,
+    "size": 22066824
+  },
+  {
+    "number": 5,
+    "prefix": "Chapter-Five---",
+    "title": "Chapter 05 — Regulatory Mechanisms Driving Salivary Gland Organogenesis",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.029",
+    "pages": 20,
+    "size": 7595363
+  },
+  {
+    "number": 6,
+    "prefix": "Chapter-Six---",
+    "title": "Chapter 06 — The Development of the Calvarial Bones and Sutures and the Pathophysiology of Craniosynostosis",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.004",
+    "pages": 26,
+    "size": 2165118
+  },
+  {
+    "number": 7,
+    "prefix": "Chapter-Seven---",
+    "title": "Chapter 07 — Tissue Interactions Regulating Tooth Development and Renewal",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.006",
+    "pages": 30,
+    "size": 1865046
+  },
+  {
+    "number": 8,
+    "prefix": "Chapter-Eight---",
+    "title": "Chapter 08 — Stem Cells in Tooth Development, Growth, Repair, and Regeneration",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.010",
+    "pages": 26,
+    "size": 3206424
+  },
+  {
+    "number": 9,
+    "prefix": "Chapter-Nine---",
+    "title": "Chapter 09 — Development and Integration of the Ear",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.007",
+    "pages": 20,
+    "size": 3281024
+  },
+  {
+    "number": 10,
+    "prefix": "Chapter-Ten---",
+    "title": "Chapter 10 — Zebrafish Craniofacial Development: A Window into Early Patterning",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.001",
+    "pages": 35,
+    "size": 4961685
+  },
+  {
+    "number": 11,
+    "prefix": "Chapter-Eleven---",
+    "title": "Chapter 11 — Regulation of Jaw Length During Development, Disease, and Evolution",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.08.002",
+    "pages": 28,
+    "size": 2717463
+  },
+  {
+    "number": 12,
+    "prefix": "Chapter-Twelve---",
+    "title": "Chapter 12 — Facial Morphogenesis: Physical and Molecular Interactions Between the Brain and the Face",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.09.001",
+    "pages": 22,
+    "size": 1501659
+  },
+  {
+    "number": 13,
+    "prefix": "Chapter-Thirteen---",
+    "title": "Chapter 13 — Developmental Plasticity of Patterned and Regenerating Oral Organs",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.005",
+    "pages": 13,
+    "size": 12961804
+  },
+  {
+    "number": 14,
+    "prefix": "Chapter-Fourteen---",
+    "title": "Chapter 14 — Regulating Craniofacial Development at the 3′ End: MicroRNAs and Their Function in Facial Morphogenesis",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.08.001",
+    "pages": 41,
+    "size": 1914655
+  },
+  {
+    "number": 15,
+    "prefix": "Chapter-Fifteen---",
+    "title": "Chapter 15 — Transcription Factors in Craniofacial Development: From Receptor Signaling to Transcriptional and Epigenetic Regulation",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.009",
+    "pages": 34,
+    "size": 1014264
+  },
+  {
+    "number": 16,
+    "prefix": "Chapter-Sixteen---",
+    "title": "Chapter 16 — Mouse Models of Rare Craniofacial Disorders",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.011",
+    "pages": 46,
+    "size": 5407339
+  },
+  {
+    "number": 17,
+    "prefix": "Chapter-Seventeen---",
+    "title": "Chapter 17 — From Bench to Bedside and Back: Improving Diagnosis and Treatment of Craniofacial Malformations Utilizing Animal Models",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.07.003",
+    "pages": 34,
+    "size": 592544
+  },
+  {
+    "number": 18,
+    "prefix": "Chapter-Eighteen---",
+    "title": "Chapter 18 — Signaling Pathways in Craniofacial Development: Insights from Rare Skeletal Disorders",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.09.005",
+    "pages": 50,
+    "size": 1406677
+  },
+  {
+    "number": 19,
+    "prefix": "Chapter-Nineteen---",
+    "title": "Chapter 19 — Clinical and Genomic Approaches for the Diagnosis of Craniofacial Disorders",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.09.004",
+    "pages": 17,
+    "size": 5107203
+  },
+  {
+    "number": 20,
+    "prefix": "Chapter-Twenty---",
+    "title": "Chapter 20 — Morphometrics, 3D Imaging, and Craniofacial Development",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.09.003",
+    "pages": 37,
+    "size": 12522943
+  },
+  {
+    "number": 21,
+    "prefix": "Chapter-Twenty-one---",
+    "title": "Chapter 21 — Imaging the Cell and Molecular Dynamics of Craniofacial Development: Challenges and New Opportunities in Imaging Developmental Tissue Patterning",
+    "doi": "https://doi.org/10.1016/bs.ctdb.2015.09.002",
+    "pages": 31,
+    "size": 1262760
+  }
+];
+let bookImportBusy=false;
 const FUNDAMENTAL_TOPICS=[
  ['Embryology & Timeline','Mouse E8.5–E18.5; staging and morphogenesis'],
  ['Cranial Neural Crest','Migration, specification, and derivatives'],
@@ -191,10 +362,10 @@ const FUNDAMENTAL_TOPICS=[
  ['Methods & Atlases','scRNA-seq, spatial transcriptomics, whole-mount and 3D imaging']
 ];
 function fundamentalsPage() {
-    const query = (window.fundQuery || '').toLowerCase().trim();
-    const filter = window.fundCategory || '';
- const cards=fundamentals.filter(x=>(!filter||x.category===filter)&&(!query||[x.title,x.category,x.kind,x.description].join(' ').toLowerCase().includes(query))).map(x=>`<article class="card fundCard" data-fund-id="${esc(x.id)}"><span class="tag">${esc(x.category)}</span><h3>${esc(x.title)}</h3><p class="meta">${esc(x.kind)}</p>${x.description?`<p style="white-space:pre-wrap">${esc(x.description)}</p>`:''}<div class="row">${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Open Resource ↗</a>`:''}${x.storage_path?`<button type="button" class="fundOpen">Open Uploaded File</button>`:''}<button type="button" class="fundDelete">Delete</button></div></article>`).join('');
- return `<div class="detailArticle fundPage"><div class="detailHeader"><a href="#" class="backLink">← Back to Library</a></div><h2>Craniofacial Development Fundamentals</h2><p class="muted">Build your private learning library with textbooks, reviews, research papers, diagrams, and personal notes. No AI API required.</p><div class="fundTopicGrid">${FUNDAMENTAL_TOPICS.map(([name,desc])=>`<div class="fundTopic"><b>${esc(name)}</b><p class="muted">${esc(desc)}</p></div>`).join('')}</div><section class="detailSection"><h3>My Learning Resources</h3><div class="row"><input id="fundSearch" placeholder="Search resources" value="${esc(window.fundQuery || '')}"><select id="fundFilter"><option value="">All Topics</option>${FUNDAMENTAL_TOPICS.map(([name])=>`<option value="${esc(name)}" ${filter===name?'selected':''}>${esc(name)}</option>`).join('')}</select></div><div class="fundResources">${cards||'<p class="muted">No matching resources yet. Add your first one below.</p>'}</div></section><section class="detailSection"><h3>Add a Learning Resource</h3><form id="fundForm" class="addForm"><label>Title *<input name="title" required maxlength="500" placeholder="e.g. Cranial neural crest migration"></label><div class="formRow"><label>Topic<select name="category">${FUNDAMENTAL_TOPICS.map(([name])=>`<option value="${esc(name)}">${esc(name)}</option>`).join('')}</select></label><label>Resource Type<select name="kind"><option>Study Note</option><option>Textbook</option><option>Review</option><option>Research Paper</option><option>Lecture / Slide</option><option>Diagram / Image</option><option>Other</option></select></label></div><label>Notes / Summary<textarea name="description" placeholder="Your notes or a brief description (optional)"></textarea></label><label>Reference Link (optional)<input name="url" type="url" placeholder="https://..."></label><label>Upload File (optional)<input name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.ppt,.pptx,.doc,.docx,.txt" ></label><p class="muted">PDF, images, slides or documents, up to 25 MB. Upload only material you have the right to store.</p><button type="submit" class="primary">Save Resource</button><p id="fundMessage" role="status"></p></form></section></div>`;
+    const query = fundQuery.toLowerCase().trim();
+    const filter = fundCategory;
+ const cards=[...fundamentals].sort((a,b)=>{const book=x=>String(x.description||'').startsWith('Current Topics in Developmental Biology, Vol. 115 (2015)');if(book(a)&&book(b))return a.title.localeCompare(b.title,undefined,{numeric:true});return book(a)?-1:book(b)?1:0;}).filter(x=>(!filter||x.category===filter)&&(!query||[x.title,x.category,x.kind,x.description].join(' ').toLowerCase().includes(query))).map(x=>`<article class="card fundCard" data-fund-id="${esc(x.id)}"><span class="tag">${esc(x.category)}</span><h3>${esc(x.title)}</h3><p class="meta">${esc(x.kind)}</p>${x.description?`<p style="white-space:pre-wrap">${esc(x.description)}</p>`:''}<div class="row">${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Open Resource ↗</a>`:''}${x.storage_path?`<button type="button" class="fundOpen">Open Uploaded File</button>`:''}<button type="button" class="fundDelete">Delete</button></div></article>`).join('');
+ return `<div class="detailArticle fundPage"><div class="detailHeader"><a href="#" class="backLink">← Back to Library</a></div><h2>Craniofacial Development Fundamentals</h2><p class="muted">Build your private learning library with textbooks, reviews, research papers, diagrams, and personal notes. No AI API required.</p><div class="fundTopicGrid">${FUNDAMENTAL_TOPICS.map(([name,desc])=>`<div class="fundTopic"><b>${esc(name)}</b><p class="muted">${esc(desc)}</p></div>`).join('')}</div><section class="detailSection"><h3>My Learning Resources</h3><div class="row"><input id="fundSearch" placeholder="Search resources" value="${esc(fundQuery)}"><select id="fundFilter"><option value="">All Topics</option>${FUNDAMENTAL_TOPICS.map(([name])=>`<option value="${esc(name)}" ${filter===name?'selected':''}>${esc(name)}</option>`).join('')}</select></div><div class="fundResources">${cards||'<p class="muted">No matching resources yet. Add your first one below.</p>'}</div></section><section class="detailSection"><h3>Import Craniofacial Development textbook (2015)</h3><p class="muted">Select the original ScienceDirect ZIP containing Chapters 1–21, or extract it and select the individual chapter PDFs together. Chapter titles and DOI are pre-mapped. All files are uploaded directly to your private Fundamentals storage; front matter and index are ignored. Existing uploaded chapters are skipped.</p><form id="fundBookForm" class="addForm"><label>ZIP or chapter PDF files<input id="fundBookFiles" type="file" accept=".zip,.pdf" multiple required></label><button type="submit" class="primary" ${bookImportBusy?'disabled':''}>Import chapters to Craniofacial Anatomy</button><p id="fundBookMessage" role="status" aria-live="polite"></p></form></section><section class="detailSection"><h3>Add a Learning Resource</h3><form id="fundForm" class="addForm"><label>Title *<input name="title" required maxlength="500" placeholder="e.g. Cranial neural crest migration"></label><div class="formRow"><label>Topic<select name="category">${FUNDAMENTAL_TOPICS.map(([name])=>`<option value="${esc(name)}">${esc(name)}</option>`).join('')}</select></label><label>Resource Type<select name="kind"><option>Study Note</option><option>Textbook</option><option>Review</option><option>Research Paper</option><option>Lecture / Slide</option><option>Diagram / Image</option><option>Other</option></select></label></div><label>Notes / Summary<textarea name="description" placeholder="Your notes or a brief description (optional)"></textarea></label><label>Reference Link (optional)<input name="url" type="url" placeholder="https://..."></label><label>Upload File (optional)<input name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.ppt,.pptx,.doc,.docx,.txt" ></label><p class="muted">PDF, images, slides or documents, up to 25 MB. Upload only material you have the right to store.</p><button type="submit" class="primary">Save Resource</button><p id="fundMessage" role="status"></p></form></section></div>`;
 }
 function showFundamentals(){
  $('listView').classList.add('hidden');$('detailView').classList.add('hidden');$('addView').classList.add('hidden');
@@ -206,6 +377,101 @@ async function loadFundamentals(){
  if(error)throw error;fundamentals=data||[];
  if(location.hash==='#fundamentals')showFundamentals();
 }
+
+function lookupBookChapter(name){
+ const leaf=name.split('/').pop();
+ return CRANIO_BOOK_CHAPTERS.find(x=>leaf.toLowerCase().startsWith(x.prefix.toLowerCase())&&leaf.toLowerCase().endsWith('.pdf'));
+}
+// Read only the selected local standard ZIP's central directory; no external ZIP service.
+async function readBookZip(file){
+ if(file.size>150*1024*1024)throw Error('ZIP exceeds 150 MB; extract it and select chapter PDFs instead.');
+ const buf=await file.arrayBuffer(), d=new DataView(buf), bytes=new Uint8Array(buf);
+ let e=-1;
+ for(let i=buf.byteLength-22;i>=Math.max(0,buf.byteLength-65557);i--){
+  if(d.getUint32(i,true)===0x06054b50&&i+22+d.getUint16(i+20,true)===buf.byteLength){e=i;break;}
+ }
+ if(e<0)throw Error('Invalid ZIP archive');
+ if(d.getUint16(e+4,true)||d.getUint16(e+6,true))throw Error('Multi-part ZIP not supported');
+ const count=d.getUint16(e+10,true), start=d.getUint32(e+16,true);
+ if(count>1000||start>=e)throw Error('Unsupported ZIP directory');
+ let pos=start, out=[];
+ for(let i=0;i<count;i++){
+  if(pos+46>e||d.getUint32(pos,true)!==0x02014b50)throw Error('Invalid ZIP central directory');
+  const flags=d.getUint16(pos+8,true), method=d.getUint16(pos+10,true), zipSize=d.getUint32(pos+20,true), size=d.getUint32(pos+24,true);
+  const nameSize=d.getUint16(pos+28,true), extra=d.getUint16(pos+30,true), comment=d.getUint16(pos+32,true), local=d.getUint32(pos+42,true);
+  if(pos+46+nameSize+extra+comment>e)throw Error('Invalid ZIP filename');
+  const name=new TextDecoder().decode(bytes.subarray(pos+46,pos+46+nameSize)), chapter=lookupBookChapter(name);
+  pos+=46+nameSize+extra+comment;
+  if(!chapter)continue;
+  if(size!==chapter.size||size>25*1024*1024||zipSize>25*1024*1024||flags&1)throw Error('Unexpected file size or encrypted chapter '+chapter.number);
+  if(local+30>start||d.getUint32(local,true)!==0x04034b50)throw Error('Invalid local ZIP header');
+  const offset=local+30+d.getUint16(local+26,true)+d.getUint16(local+28,true);
+  if(offset+zipSize>start)throw Error('Invalid ZIP file bounds');
+  out.push({chapter,read:async()=>{
+   const part=new Blob([bytes.subarray(offset,offset+zipSize)]);
+   let pdf;
+   if(method===0)pdf=part;
+   else if(method===8){
+    if(typeof DecompressionStream==='undefined')throw Error('Browser cannot unzip; extract the ZIP locally and select PDFs instead.');
+    let stream;
+    try{stream=part.stream().pipeThrough(new DecompressionStream('deflate-raw'));}catch{throw Error('Browser cannot unzip; extract the ZIP locally and select PDFs instead.');}
+    const reader=stream.getReader();let chunks=[],total=0;
+    try{for(;;){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>size){await reader.cancel();throw Error('Invalid expanded chapter size');}chunks.push(value);}}
+    finally{reader.releaseLock();}
+    pdf=new Blob(chunks,{type:'application/pdf'});
+   }else throw Error('Unsupported ZIP compression');
+   if(pdf.size!==size)throw Error('Chapter size mismatch');
+   return pdf;
+  }});
+ }
+ return out;
+}
+async function importFundBook(e){
+ e.preventDefault();if(bookImportBusy)return;
+ const msg=$('fundBookMessage'),btn=e.target.querySelector('[type=submit]'),files=[...$('fundBookFiles').files];
+ if(!user||!client){msg.textContent='Sign in first.';return;}
+ const uid=user.id;let imported=0,skipped=0,errors=[];
+ const report=s=>{const target=$('fundBookMessage');if(target)target.textContent=s;};
+ bookImportBusy=true;btn.disabled=true;report('Reading local files…');
+ try{
+  let entries=[];
+  for(const file of files){
+   if(file.name.toLowerCase().endsWith('.zip'))entries.push(...await readBookZip(file));
+   else{const chapter=lookupBookChapter(file.name);if(chapter){if(file.size!==chapter.size)throw Error('Unexpected size for chapter '+chapter.number);entries.push({chapter,read:async()=>file});}}
+  }
+  const unique=[...new Map(entries.map(x=>[x.chapter.number,x])).values()].sort((a,b)=>a.chapter.number-b.chapter.number);
+  if(!unique.length)throw Error('No recognized textbook chapters found. Select the original ScienceDirect ZIP or unrenamed chapter PDFs.');
+  const existing=await client.from('fundamentals_resources').select('id,title,url,storage_path,category').eq('user_id',uid).eq('category','Craniofacial Anatomy').limit(1000);
+  if(existing.error)throw existing.error;const saved=existing.data||[];
+  for(const {chapter,read} of unique){
+   if(user?.id!==uid)throw Error('Account changed; import stopped.');
+   report('Chapter '+chapter.number+' / 21 — '+imported+' uploaded, '+skipped+' already saved, '+errors.length+' failed');
+   if(saved.some(x=>x.storage_path&&(x.url===chapter.doi||x.title===chapter.title))){skipped++;continue;}
+   let path='';
+   try{
+    const pdf=await read();
+    if(new TextDecoder().decode(await pdf.slice(0,5).arrayBuffer())!=='%PDF-')throw Error('Not a valid PDF');
+    path=uid+'/'+crypto.randomUUID()+'.pdf';
+    const up=await client.storage.from('fundamentals-files').upload(path,pdf,{contentType:'application/pdf',upsert:false});
+    if(up.error){path='';throw up.error;}
+    const record={user_id:uid,title:chapter.title,category:'Craniofacial Anatomy',kind:'Textbook',description:'Current Topics in Developmental Biology, Vol. 115 (2015) · '+chapter.pages+' pages',url:chapter.doi,storage_path:path};
+    const insert=await client.from('fundamentals_resources').insert(record);
+    if(insert.error)throw insert.error;
+    saved.push(record);imported++;path='';
+   }catch(err){
+    if(path){const clean=await client.storage.from('fundamentals-files').remove([path]);if(clean.error)errors.push('Chapter '+chapter.number+' file cleanup failed');}
+    errors.push('Chapter '+chapter.number+': '+err.message);
+   }
+  }
+  fundCategory='Craniofacial Anatomy';fundQuery='';
+  await loadFundamentals();
+  const missing=21-unique.length;
+  const summary=imported+' uploaded, '+skipped+' already saved, '+errors.length+' errors. '+(missing?missing+' chapters not selected. ':'')+(errors.length?errors.join(' | '):'');
+  report(summary);toast(summary);
+ }catch(err){report('Import stopped: '+err.message+' ('+imported+' saved). Retry the same files; saved chapters are skipped.');}
+ finally{bookImportBusy=false;const current=$('fundBookForm')?.querySelector('[type=submit]');if(current)current.disabled=false;}
+}
+
 async function addFundamental(e){
  e.preventDefault();const form=e.target,msg=$('fundMessage'),button=form.querySelector('[type=submit]');
  button.disabled=true;msg.textContent='Saving resource…';let path='';
@@ -411,7 +677,7 @@ for(let id of ['search','topic','status','stars','relevance'])$(id).addEventList
 for(const area of ['cards','detailView']){$(area).addEventListener('click',handleCard);$(area).addEventListener('change',e=>{if(e.target.matches('.readStatus'))handleCard(e);});}window.addEventListener('hashchange',showRoute);
 $('facebaseView').addEventListener('click',e=>{if(e.target.id==='refreshFaceBase')loadFaceBaseFeed(true);});
 $('facebaseView').addEventListener('input',e=>{if(e.target.id==='facebaseSearch'){facebaseFilter=e.target.value;const pos=e.target.selectionStart;showFaceBase();const el=$('facebaseSearch');el.focus();el.setSelectionRange(pos,pos);}});
-$('fundamentalsView').addEventListener('submit',e=>{if(e.target.id==='fundForm')addFundamental(e);});
+$('fundamentalsView').addEventListener('submit',e=>{if(e.target.id==='fundForm')addFundamental(e);else if(e.target.id==='fundBookForm')importFundBook(e);});
 $('fundamentalsView').addEventListener('click',handleFundamentalClick);
 $('fundamentalsView').addEventListener('input',e=>{if(e.target.id==='fundSearch'){fundQuery=e.target.value;const focus=e.target.selectionStart;showFundamentals();const input=$('fundSearch');input.focus();input.setSelectionRange(focus,focus);}});
 $('fundamentalsView').addEventListener('change',e=>{if(e.target.id==='fundFilter'){fundCategory=e.target.value;showFundamentals();}});
