@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-22 07:58 UTC",
+  "updated_at": "2026-11-23 08:58 UTC",
   "source": "https://www.facebase.org/ermrest/catalog/1/entity/isa:dataset",
   "items": [
     {
@@ -498,6 +498,15 @@
       "accession": "FB00001125"
     },
     {
+      "title": "Distribution of osteoclasts during craniofacial development in wild-type zebrafish",
+      "kind": "FaceBase dataset",
+      "date": "2021-11-19",
+      "summary": "Craniofacial development involves a wide variety of different cell types working in concert to generate adult structures. One of these cell types, the osteoclast, has not been well studied in the context of normal craniofacial development. Our aim in generating this series of imaging data was to visualize where osteoclasts aggregate and are distributed during development across multiple individuals. Through low-magni",
+      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=6-F6XM",
+      "rid": "6-F6XM",
+      "accession": "FB00001240"
+    },
+    {
       "title": "IMPC: A standardized mouse morphology dataset for MusMorph",
       "kind": "FaceBase dataset",
       "date": "2021-11-05",
@@ -916,7 +925,17 @@
       "date": "2020-10-12",
       "summary": "### Gene expression in the mandibular and maxillary arches\n\n_Gli2_ is expressed in the mesenchyme of the maxillary and mandibular arches at E10.5. In the mandibular arch, the most proximal region does not express Gli2. At E12.5, it is expressed in the osteogenic and odontogenic mesenchyme of maxilla and mandible. At E14.5, Gli2 is expressed in differentiated osteoblasts of maxilla and mandible, oral mesenchyme of the",
       "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=1-X5JG",
-      "rid": "1-X5JG"
+      "rid": "1-X5JG",
+      "accession": "FB00001141"
+    },
+    {
+      "title": "Gene summary for Prrx1",
+      "kind": "FaceBase dataset",
+      "date": "2020-10-12",
+      "summary": "### Gene expression in the mandibular and maxillary arches\n\n_Prrx1_ is expressed in the maxillary arch and the distal region of the mandibular arch at E10.5. At E12.5 and E14.5, _Prrx1_ is expressed throughout the mesenchyme of both maxilla and mandible. The tongue is negative at both stages.\n\n| E10.5 | E12.5 | E14.5 |\n|-------|-------|-------|\n| ![ImageWithSize](/hatrac/facebase/genesummaries/prrx1-10.5.jpg){width=2",
+      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=1-X5MG",
+      "rid": "1-X5MG",
+      "accession": "FB00001149"
     },
     {
       "title": "Coronal Suture, Fgfr2+/S252W (Apert syndrome mouse model), E16.5 and E18.5",
@@ -1170,6 +1189,15 @@
       "accession": "FB00001073"
     },
     {
+      "title": "Activity of predicted chimpanzee neural crest enhancer near THBS1 in E11.5 transgenic mouse embryo – Tg(panTro4_chr15:36056787-36057287::LacZ).",
+      "kind": "FaceBase dataset",
+      "date": "2020-04-01",
+      "summary": "Tg(panTro4_chr15:36056787-36057287::LacZ) demonstrates no reproducible enhancer activity at E11.5.",
+      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=1-718G",
+      "rid": "1-718G",
+      "accession": "FB00001074"
+    },
+    {
       "title": "Facial shape and allometry quantitative trait loci in the Diversity Outbred mouse",
       "kind": "FaceBase dataset",
       "date": "2020-02-06",
@@ -1204,6 +1232,15 @@
       "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=1-70MP",
       "rid": "1-70MP",
       "accession": "FB00001060"
+    },
+    {
+      "title": "Activity of mouse neural crest enhancer intronic in Zfhx4 in E13.5 transgenic mouse embryos– Tg(mm10_chr3:5329672-5330626::LacZ).",
+      "kind": "FaceBase dataset",
+      "date": "2019-08-02",
+      "summary": "Tg(mm10_chr3:5329672-5330626::LacZ) mouse neural crest enhancer with reproducible activity in the midbrain-hindbrain junction, periocular mesenchyme, frontonasal process and maxillary BA1 derived tissues, and limbs.",
+      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=1-70GA",
+      "rid": "1-70GA",
+      "accession": "FB00001053"
     },
     {
       "title": "Dent2: Caries in Permanent Dentition",
@@ -1411,6 +1448,15 @@
       "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=1-3VAT",
       "rid": "1-3VAT",
       "accession": "FB00000994"
+    },
+    {
+      "title": "Lambdoid Suture, WT and Fgfr2+/S252W (Apert syndrome mouse model), E16.5 and E18.5",
+      "kind": "FaceBase dataset",
+      "date": "2018-08-29",
+      "summary": "RNA-Seq libraries are from laser capture microdissections of C57BL/6J Fgfr2+/+ (W) and C57BL/6J Apert syndrome EIIA-Cre+;Fgfr2+/S252W (A) mice, at development stages TS24/E16.5 (6) and TS26/E18.5 (8), from the lambdoid suture (L), with 5 biological replicates (1-5), of the suture mesenchyme (SM) and parietal (PA) and interparietal (IP) osteogenic fronts. “W8L1SM”, for example, indicates WT, E18.5, lambdoid suture, re",
+      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=1-3X0M",
+      "rid": "1-3X0M",
+      "accession": "FB00000998"
     },
     {
       "title": "Interpalatine suture, WT and Fgfr2+/S252W (Apert syndrome mouse model), E16.5 and E18.5",
@@ -1665,6 +1711,15 @@
       "accession": "FB00000904"
     },
     {
+      "title": "Coronal suture, WT and Twist1+/- (Saethre-Chotzen syndrome mouse model), E18.5",
+      "kind": "FaceBase dataset",
+      "date": "2017-09-01",
+      "summary": "RNA-Seq libraries are from laser capture microdissections of C57BL/6J Fgfr2+/+ (W) and C57BL/6J Saethre-Chotzen syndrome Twist1+/- (T) mice, at development stage TS26/E18.5 (8), from the coronal suture ( C ), with 5 biological replicates (1-5), of the suture mesenchyme (SM), frontal bone osteogenic front (FR), and parietal bone osteogenic front (PA). “W8C1SM”, for example, indicates WT, E18.5, coronal suture, replica",
+      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=TJY",
+      "rid": "TJY",
+      "accession": "FB00000902"
+    },
+    {
       "title": "Temporal analysis of ectoderm and mesenchyme gene expression in the developing mouse facial prominences",
       "kind": "FaceBase dataset",
       "date": "2017-06-07",
@@ -1744,60 +1799,6 @@
       "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=VPC",
       "rid": "VPC",
       "accession": "FB00000842"
-    },
-    {
-      "title": "p300 ChIP-seq experiment on mouse embryonic craniofacial tissue at e11.5",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "p300 ChIP-seq experiment on mouse embryonic craniofacial tissue (e11.5)",
-      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=TYM",
-      "rid": "TYM",
-      "accession": "FB00000834"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - hs1626",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=1626&organism_id=1) to see the associated data in the VISTA browser.",
-      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=VXP",
-      "rid": "VXP",
-      "accession": "FB00000840"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - mm1215",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development",
-      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=VY8",
-      "rid": "VY8",
-      "accession": "FB00000835"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - mm50",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=50&organism_id=2) to see the associated data in the VISTA browser.",
-      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=TQW",
-      "rid": "TQW",
-      "accession": "FB00000848"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - hs1629",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=1629&organism_id=1) to see associated data in the VISTA browser. (Note that the VISTA Browser data from this link corresponds to E11.5 while the data shown in here is for E14.5)",
-      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=V3M",
-      "rid": "V3M",
-      "accession": "FB00000837"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - hs1620",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=1620&organism_id=1) to see the associated data in the VISTA browser.",
-      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=TSR",
-      "rid": "TSR",
-      "accession": "FB00000845"
     }
   ]
 }
