@@ -379,5 +379,47 @@
     "key_finding": "CNCC-specific Vwa1 reduction disrupts KDM6B-mediated Runx2 activation, osteochondral differentiation and craniofacial development.",
     "runx2_value": "Mechanistic reference linking epigenetic control of Runx2 to proliferation, migration and skeletal morphology.",
     "methods": "CNCC-specific mouse perturbation, RNA-seq, ChIP-qPCR and rescue"
+  },
+  {
+    "doi": "10.1038/s41592-025-02721-3",
+    "pmid": null,
+    "title": "CellNEST reveals cell–cell relay networks using attention mechanisms on spatial transcriptomics",
+    "authors": "Zohora et al.",
+    "journal": "Nature Methods",
+    "publication_year": "2025",
+    "topic": "Spatial transcriptomics",
+    "stars": 5,
+    "key_finding": "CellNEST predicts spatially organized ligand–receptor relay networks using graph attention.",
+    "runx2_value": "Framework for testing candidate multi-compartment signaling relays; predictions require independent validation.",
+    "methods": "Spatial transcriptomics, graph attention, ligand–receptor network inference",
+    "brief_date": "2026-11-25"
+  },
+  {
+    "doi": "10.1038/s41467-025-62988-0",
+    "pmid": null,
+    "title": "Finding spatially variable ligand-receptor interactions with functional support from downstream genes",
+    "authors": "Li et al.",
+    "journal": "Nature Communications",
+    "publication_year": "2025",
+    "topic": "Cell–cell communication",
+    "stars": 5,
+    "key_finding": "SPIDER identifies spatially variable ligand–receptor interactions supported by downstream transcriptional signals.",
+    "runx2_value": "Prioritize spatially plausible interactions with receiver-side transcriptional evidence rather than ligand–receptor expression alone.",
+    "methods": "Spatial transcriptomics, probabilistic modeling, downstream transcription factor analysis",
+    "brief_date": "2026-11-25"
+  },
+  {
+    "doi": "10.1038/s41467-025-56280-4",
+    "pmid": null,
+    "title": "Statistical identification of cell type-specific spatially variable genes in spatial transcriptomics",
+    "authors": "Shang, Wu and Zhou",
+    "journal": "Nature Communications",
+    "publication_year": "2025",
+    "topic": "Spatial transcriptomics",
+    "stars": 5,
+    "key_finding": "Celina models spatially varying expression within cell types while accounting for cell-type distributions.",
+    "runx2_value": "Distinguish regional transcriptional variation from changes in cellular composition in developing craniofacial tissues.",
+    "methods": "Spatially varying coefficient model, spatial transcriptomics",
+    "brief_date": "2026-11-25"
   }
 ]
