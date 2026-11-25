@@ -1,7 +1,16 @@
 {
-  "updated_at": "2026-11-24 10:53 UTC",
+  "updated_at": "2026-11-25 09:50 UTC",
   "source": "https://www.facebase.org/ermrest/catalog/1/entity/isa:dataset",
   "items": [
+    {
+      "title": "Cranial Morphology and Severity in Craniosynostosis: The CranioRate™ Multi-Institutional Imaging and Shape-Analysis Dataset — Metopic Cohort",
+      "kind": "FaceBase dataset",
+      "date": "2026-11-24",
+      "summary": "Craniosynostosis, the premature fusion of one or more cranial sutures, affects approximately 1 in 2,000 to 2,500 live births and produces abnormal skull morphology with an elevated risk of intracranial hypertension, neurocognitive impairment, visual disturbance, and appearance-related psychosocial sequelae. Metopic craniosynostosis (premature fusion of the metopic suture, producing trigonocephaly) is among the most c",
+      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=AN-96AJ",
+      "rid": "AN-96AJ",
+      "accession": "FB00001469"
+    },
     {
       "title": "Human tongue-derived fibroadipogenic progenitor cell secretome",
       "kind": "FaceBase dataset",
@@ -1790,15 +1799,6 @@
       "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=VXE",
       "rid": "VXE",
       "accession": "FB00000832"
-    },
-    {
-      "title": "Transgenic Mouse Enhancer OPT Assays - mm745",
-      "kind": "FaceBase dataset",
-      "date": "2017-02-06",
-      "summary": "ChIP-seq, RNA-seq and transgenic assays to identify non-coding regulatory elements (enhancers) active during craniofacial development.\n\nFollow this [link](http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=745&organism_id=2) to see associated data in the VISTA browser.",
-      "url": "https://www.facebase.org/chaise/record/#1/isa:dataset/RID=VPC",
-      "rid": "VPC",
-      "accession": "FB00000842"
     }
   ]
 }
